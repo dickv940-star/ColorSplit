@@ -4,14 +4,35 @@ const AppState = {
 
     file: null,
 
+    image: null,
+
     preview: null,
 
-    colorSpace: null,
+    metadata: {
 
-    dpi: 0,
+        name: "",
+        type: "",
+        size: 0,
 
-    width: 0,
+        width: 0,
+        height: 0,
 
-    height: 0
+        dpi: 96,
+
+        aspectRatio: "",
+
+        colorSpace: "Unknown",
+
+        bitDepth: "",
+
+        alpha: false,
+
+        iccProfile: "Unknown",
+
+        created: "",
+
+        modified: ""
+
+    }
 
 };
