@@ -410,7 +410,27 @@ UPDATE INFO
 
 updateWorkspaceMetadata();
 
+/*
+=========================================================
+INIT PREPRESS UI
+=========================================================
+*/
 
+
+if(
+typeof PrepressPanel !== "undefined"
+){
+
+
+    PrepressPanel.init();
+
+
+    console.log(
+        "✓ Prepress Panel Initialized"
+    );
+
+
+}
 
 
 
