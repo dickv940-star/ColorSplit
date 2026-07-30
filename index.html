@@ -16,61 +16,72 @@ ColorSplit Pro
 
 
 <meta name="description"
-      content="Professional CMYK Color Separation and FreeHand Prepress Software">
+content="Professional CMYK Color Separation and FreeHand Prepress Software">
 
 
 <meta name="theme-color"
-      content="#000000">
+content="#000000">
+
+
+<!-- PWA -->
+
+<meta name="mobile-web-app-capable"
+content="yes">
 
 
 <meta name="apple-mobile-web-app-capable"
-      content="yes">
+content="yes">
 
 
 <meta name="apple-mobile-web-app-status-bar-style"
-      content="black">
+content="black">
 
 
 <meta name="apple-mobile-web-app-title"
-      content="ColorSplit Pro">
+content="ColorSplit Pro">
+
 
 
 <link rel="manifest"
-      href="./manifest.json">
+href="./manifest.json">
+
 
 
 <link rel="icon"
-      href="./assets/logo.png">
+href="./assets/logo.png">
+
 
 
 <link rel="apple-touch-icon"
-      href="./assets/logo.png">
+href="./assets/logo.png">
 
 
 
-<!-- ==========================================
-     CSS
-========================================== -->
 
 
-<link rel="stylesheet"
-      href="./css/style.css">
-
-
-<link rel="stylesheet"
-      href="./css/home.css">
+<!-- =========================================
+ CSS
+========================================= -->
 
 
 <link rel="stylesheet"
-      href="./css/loading.css">
+href="./css/style.css">
 
 
 <link rel="stylesheet"
-      href="./css/workspace.css">
+href="./css/home.css">
 
 
 <link rel="stylesheet"
-      href="./css/prepress.css">
+href="./css/loading.css">
+
+
+<link rel="stylesheet"
+href="./css/workspace.css">
+
+
+<link rel="stylesheet"
+href="./css/prepress.css">
 
 
 
@@ -78,26 +89,24 @@ ColorSplit Pro
 
 
 
+
 <body>
 
 
+<!-- =========================================
+ APPLICATION ROOT
+========================================= -->
 
-<!-- ==========================================
-     APPLICATION ROOT
-========================================== -->
 
-
-<div id="app">
-
-</div>
+<div id="app"></div>
 
 
 
 
 
-<!-- ==========================================
-     CORE
-========================================== -->
+<!-- =========================================
+ CORE SYSTEM
+========================================= -->
 
 
 <script src="./js/state.js"></script>
@@ -112,9 +121,9 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     FILE ENGINE
-========================================== -->
+<!-- =========================================
+ FILE ENGINE
+========================================= -->
 
 
 <script src="./js/engines/fileReader.js"></script>
@@ -135,19 +144,23 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     COLOR ENGINE
-========================================== -->
+<!-- =========================================
+ COLOR ENGINE
+========================================= -->
 
 
 <script src="./js/engines/color/iccConverter.js"></script>
 
+
 <script src="./js/engines/color/adobeProfile.js"></script>
+
 
 <script src="./js/engines/color/gamutMapper.js"></script>
 
+
 <script src="./js/engines/color/colorDifference.js"></script>
-      
+
+
 <script src="./js/engines/color/colorInspector.js"></script>
 
 
@@ -160,9 +173,12 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     COLOR SCIENCE ENGINE
-========================================== -->
+<!-- =========================================
+ COLOR SCIENCE
+========================================= -->
+
+
+<script src="./js/engines/color/cmykSeparation.js"></script>
 
 
 <script src="./js/engines/color/softProof.js"></script>
@@ -171,18 +187,15 @@ ColorSplit Pro
 <script src="./js/engines/color/deltaE.js"></script>
 
 
-<script src="./js/engines/color/cmykSeparation.js"></script>
-
-
 <script src="./js/engines/color/halftoneEngine.js"></script>
 
 
 
 
 
-<!-- ==========================================
-     FREEHAND PREPRESS ENGINE
-========================================== -->
+<!-- =========================================
+ FREEHAND PREPRESS ENGINE
+========================================= -->
 
 
 <script src="./js/engines/freehand/objectDetector.js"></script>
@@ -206,9 +219,9 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     PREPRESS USER INTERFACE
-========================================== -->
+<!-- =========================================
+ PREPRESS UI ENGINE
+========================================= -->
 
 
 <script src="./js/ui/prepress/prepressPanel.js"></script>
@@ -226,9 +239,9 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     APPLICATION PAGE
-========================================== -->
+<!-- =========================================
+ PAGE SYSTEM
+========================================= -->
 
 
 <script src="./js/pages/home.js"></script>
@@ -243,9 +256,9 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     APPLICATION BOOTSTRAP
-========================================== -->
+<!-- =========================================
+ APPLICATION BOOT
+========================================= -->
 
 
 <script src="./js/app.js"></script>
@@ -254,9 +267,9 @@ ColorSplit Pro
 
 
 
-<!-- ==========================================
-     SERVICE WORKER
-========================================== -->
+<!-- =========================================
+ SERVICE WORKER
+========================================= -->
 
 
 <script>
@@ -269,7 +282,7 @@ if(
 
 window.addEventListener(
 "load",
-()=>{
+function(){
 
 
 navigator.serviceWorker
@@ -279,28 +292,28 @@ navigator.serviceWorker
 
 
 .then(
-reg=>{
-
+function(){
 
 console.log(
 "Service Worker Registered"
 );
 
+}
+)
 
-})
 
 
 .catch(
-err=>{
-
+function(error){
 
 console.error(
 "Service Worker Error",
-err
+error
 );
 
+}
 
-});
+);
 
 
 });
@@ -315,5 +328,6 @@ err
 
 
 </body>
+
 
 </html>
