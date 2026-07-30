@@ -9,9 +9,7 @@ document.getElementById("app").innerHTML=`
 <div class="spinner"></div>
 
 <p id="loadingText">
-
 Reading File...
-
 </p>
 
 </div>
