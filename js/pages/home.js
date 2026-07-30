@@ -29,12 +29,15 @@ Upload File
 
 document
 .getElementById("fileInput")
-.onchange = function(){
+.onchange=async function(){
 
-AppState.file=this.files[0];
+    if(!this.files.length)
+        return;
 
-showPage("loading");
+    showPage("loading");
 
-};
+    await importFile(this.files[0]);
+
+    showPage("workspace");
 
 }
