@@ -2,6 +2,7 @@
 =========================================================
 ColorSplit Pro
 Application Bootstrap
+
 Version : 3.0.0
 Architecture : Prepress Engine
 Author : AppDIGI
@@ -32,7 +33,6 @@ const APP = {
     "Prepress Engine"
 
 
-
 };
 
 
@@ -46,9 +46,10 @@ APPLICATION START
 
 
 window.addEventListener(
-"load",
-initApp
+    "load",
+    initApp
 );
+
 
 
 
@@ -61,7 +62,6 @@ function initApp(){
 
 
     console.clear();
-
 
 
 
@@ -115,13 +115,12 @@ function initApp(){
 
 
 
-
     initializeState();
 
 
 
-
     initializeEngines();
+
 
 
 
@@ -151,11 +150,8 @@ function initApp(){
 
 
 
-
     AppState.ready =
     true;
-
-
 
 
 
@@ -209,10 +205,10 @@ function initializeState(){
 
 
 
+
     console.log(
     "✓ State Initialized"
     );
-
 
 
 }
@@ -277,17 +273,6 @@ typeof PreviewLoader
 
 
 
-if(
-typeof PrepressPanel !== "undefined"
-){
-
-    console.log(
-    "✓ Prepress Panel Engine Ready"
-    );
-
-}
-
-
 
 
 
@@ -344,7 +329,6 @@ loadEngine(
 "Palette Manager",
 typeof PaletteManager
 );
-
 
 
 
@@ -445,6 +429,56 @@ typeof FreeHandAnalyzer
 
 
 
+
+/*
+=========================
+UI ENGINE
+=========================
+*/
+
+
+if(
+typeof PrepressPanel !== "undefined"
+){
+
+
+    console.log(
+    "✓ Prepress Panel Engine Ready"
+    );
+
+
+}
+else{
+
+
+    console.warn(
+    "✕ Prepress Panel Not Found"
+    );
+
+
+}
+
+
+
+
+
+
+console.log(
+"All Engines Loaded"
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
 /*=========================================================
 ENGINE CHECK
 =========================================================*/
@@ -458,7 +492,8 @@ engine
 
 
 if(
-engine !== "undefined"
+engine !== "undefined" &&
+engine !== undefined
 ){
 
 
@@ -621,6 +656,16 @@ initializeEngines;
 
 window.updateStatus =
 updateStatus;
+
+
+
+window.updateLoading =
+updateLoading;
+
+
+
+window.showError =
+showError;
 
 
 
