@@ -1,147 +1,62 @@
 /*
 =========================================================
-ColorSplit Pro
-Router Engine
-Version : 3.0.0
-Architecture : Workspace PRO
-Author : AppDIGI
+ ColorSplit Pro
+ Router Engine
+ Version : 3.0.0
+ Architecture : Workspace PRO
+ Author : AppDIGI
 =========================================================
 */
 
 "use strict";
 
-const Router = {
 
-    current: "home",
+window.Router = {
 
-    pages: {
+    current:"home",
 
-        home: renderHome,
+    pages:{}
 
-        loading: renderLoading,
+};
 
-        workspace: renderWorkspace
+
+/*=========================================================
+ REGISTER PAGE
+=========================================================*/
+
+Router.register = function(name, renderer){
+
+    Router.pages[name] = renderer;
+
+};
+
+
+/*=========================================================
+ SHOW PAGE
+=========================================================*/
+
+window.showPage = function(page){
+
+    console.log("Router →", page);
+
+
+    const renderer = Router.pages[page];
+
+
+    if(typeof renderer === "function"){
+
+        Router.current = page;
+
+        renderer();
+
+    }
+    else{
+
+        console.error(
+            "Page renderer tidak ditemukan:",
+            page
+        );
 
     }
 
 };
-
-/*=========================================================
-SHOW PAGE
-=========================================================*/
-
-function showPage(page){
-
-    const renderer = Router.pages[page];
-
-    if(typeof renderer !== "function"){
-
-        console.error("Renderer tidak ditemukan :", page);
-
-        return;
-
-    }
-
-    Router.current = page;
-
-    if(typeof AppState !== "undefined"){
-
-        AppState.page = page;
-
-    }
-
-    clearApplication();
-
-    renderer();
-
-}
-
-/*=========================================================
-CLEAR APPLICATION
-=========================================================*/
-
-function clearApplication(){
-
-    const app = document.getElementById("app");
-
-    if(app){
-
-        app.innerHTML = "";
-
-    }
-
-}
-
-/*=========================================================
-NAVIGATION
-=========================================================*/
-
-function goHome(){
-
-    showPage("home");
-
-}
-
-function goLoading(){
-
-    showPage("loading");
-
-}
-
-function goWorkspace(){
-
-    showPage("workspace");
-
-}
-
-function refreshPage(){
-
-    showPage(Router.current);
-
-}
-
-/*=========================================================
-HELPER
-=========================================================*/
-
-function getCurrentPage(){
-
-    return Router.current;
-
-}
-
-function isPage(page){
-
-    return Router.current === page;
-
-}
-
-/*=========================================================
-GLOBAL EXPORT
-=========================================================*/
-
-window.Router = Router;
-
-window.showPage = showPage;
-
-window.goHome = goHome;
-
-window.goLoading = goLoading;
-
-window.goWorkspace = goWorkspace;
-
-window.refreshPage = refreshPage;
-
-window.getCurrentPage = getCurrentPage;
-
-window.isPage = isPage;
-
-/*=========================================================
-READY
-=========================================================*/
-
-document.addEventListener("DOMContentLoaded", ()=>{
-
-    console.log("✓ Router Ready");
-
-});
