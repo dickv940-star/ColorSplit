@@ -226,7 +226,6 @@ HEX
 
 }
 
-
 function initWorkspace(){
 
 
@@ -245,20 +244,45 @@ function initWorkspace(){
 
     if(canvas){
 
+
         CanvasEngine.init();
+
+
+
+        if(
+        typeof PixelInspector !== "undefined"
+        ){
+
+            PixelInspector.init();
+
+        }
+        else{
+
+            console.warn(
+                "Pixel Inspector Engine belum dimuat"
+            );
+
+        }
+
 
     }
     else{
+
 
         console.error(
             "Preview Canvas belum dibuat"
         );
 
+
     }
 
 
 
+
+
     WorkspaceFile.init();
+
+
 
 
 
@@ -275,7 +299,9 @@ function initWorkspace(){
 
         btn.onclick=function(){
 
+
             WorkspaceFile.select();
+
 
         };
 
@@ -283,8 +309,8 @@ function initWorkspace(){
     }
 
 
-}
 
+}
 
 
 /*=========================================================
