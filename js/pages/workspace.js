@@ -538,29 +538,210 @@ EVENT
 =========================================================
 */
 
-bindEvents() {
+/*
+=========================================================
+BIND EVENTS
+=========================================================
+*/
 
-    const btnAnalyze = document.getElementById("btnAnalyze");
+bindEvents(){
 
-    if (btnAnalyze) {
+    const events = {
 
-        btnAnalyze.addEventListener("click", () => {
+        btnOriginal : ()=>this.showChannel("Original"),
 
-            this.updateStatus("Analyzing...");
+        btnC : ()=>this.showChannel("C"),
 
-            if (typeof analyzePrepress === "function") {
+        btnM : ()=>this.showChannel("M"),
 
-                analyzePrepress();
+        btnY : ()=>this.showChannel("Y"),
 
-            }
+        btnK : ()=>this.showChannel("K"),
 
-        });
+        btnAnalyze : ()=>this.analyze(),
+
+        btnSeparation : ()=>this.generateSeparation(),
+
+        btnExport : ()=>this.exportReport()
+
+    };
+
+    Object.keys(events).forEach(id=>{
+
+        const button = document.getElementById(id);
+
+        if(button){
+
+            button.addEventListener(
+                "click",
+                events[id]
+            );
+
+        }
+
+    });
+
+    
+}
+
+/*
+=========================================================
+ANALYZE
+=========================================================
+*/
+
+analyze(){
+
+    this.updateStatus(
+        "Analyzing..."
+    );
+
+    if(typeof analyzePrepress==="function"){
+
+        analyzePrepress();
 
     }
 
 }
+/*
+=========================================================
+SHOW CHANNEL
+=========================================================
+*/
 
-};
+showChannel(channel){
+
+    this.updateStatus(
+        channel+" Channel"
+    );
+
+    if(channel==="Original"){
+
+        if(typeof PreviewLoader!=="undefined"){
+
+            PreviewLoader.draw();
+
+        }
+
+        return;
+
+    }
+
+    if(typeof CMYKSeparation!=="undefined"){
+
+        CMYKSeparation.showChannel(channel);
+
+    }
+
+}
+/*
+=========================================================
+GENERATE CMYK
+=========================================================
+*/
+
+generateSeparation(){
+
+    if(typeof CMYKSeparation==="undefined"){
+
+        console.warn(
+            "CMYK Separation belum tersedia."
+        );
+
+        return;
+
+    }
+
+    if(!this.canvas){
+
+        return;
+
+    }
+
+    CMYKSeparation.process(
+        this.canvas
+    );
+
+    this.updateStatus(
+        "CMYK Separation Complete"
+    );
+
+}
+
+/*
+=========================================================
+EXPORT
+=========================================================
+*/
+
+exportReport(){
+
+    this.updateStatus(
+        "Preparing Export..."
+    );
+
+    console.log(
+        "Export Report"
+    );
+
+}
+
+/*
+=========================================================
+REFRESH
+=========================================================
+*/
+
+refresh(){
+
+    this.updateMetadata();
+
+}
+
+if(
+    AppState.settings.autoAnalyze
+){
+
+    setTimeout(()=>{
+
+        this.analyze();
+
+    },500);
+
+}
+
+init(){
+
+    this.canvas =
+    document.getElementById(
+        "previewCanvas"
+    );
+
+    this.bindEvents();
+
+    this.updateMetadata();
+
+    this.initializeModules();
+
+    this.initialized=true;
+
+    this.updateStatus(
+        "Workspace Ready"
+    );
+
+    if(
+        AppState.settings.autoAnalyze
+    ){
+
+        setTimeout(()=>{
+
+            this.analyze();
+
+        },500);
+
+    }
+
+}
 
 function renderWorkspace() {
 
