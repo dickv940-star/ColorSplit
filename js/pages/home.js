@@ -2,9 +2,15 @@
 =========================================================
 ColorSplit Pro
 Home Page
-Version 1.0.0
+Version : 1.0.0
 =========================================================
 */
+
+"use strict";
+
+/*=========================================================
+RENDER HOME
+=========================================================*/
 
 function renderHome() {
 
@@ -14,12 +20,14 @@ function renderHome() {
 
     <div class="home">
 
-        <img src="assets/logo.png" class="logo" alt="Logo">
+        <img src="assets/logo.png"
+             class="logo"
+             alt="ColorSplit Pro">
 
         <h1>ColorSplit Pro</h1>
 
         <p class="subtitle">
-            Automatic CMYK Color Separation
+            Professional CMYK Color Separation
         </p>
 
         <label class="upload">
@@ -27,7 +35,7 @@ function renderHome() {
             <input
                 id="fileInput"
                 type="file"
-                accept=".png,.jpg,.jpeg,.tif,.tiff,.bmp,.webp,.pdf">
+                accept=".png,.jpg,.jpeg,.bmp,.webp,.tif,.tiff,.pdf">
 
             <span>Upload File</span>
 
@@ -42,7 +50,7 @@ function renderHome() {
 }
 
 /*=========================================================
-Initialize Home
+INITIALIZE HOME
 =========================================================*/
 
 function initializeHome() {
@@ -62,99 +70,104 @@ function initializeHome() {
 }
 
 /*=========================================================
-Upload File
+FILE SELECTED
 =========================================================*/
 
-async function onFileSelected(e) {
+async function onFileSelected(event) {
 
-    const file = e.target.files[0];
+    const file = event.target.files[0];
 
     if (!file)
         return;
 
-   try {
+    try {
 
-    // Pindah ke halaman loading terlebih dahulu
-    showPage("loading");
+        showPage("loading");
 
-    // Update teks loading (jika ada)
-    updateLoading("Reading File...");
+        updateLoading("Reading File...");
 
-    // Simpan file ke state
-    AppState.file = file;
+        /*------------------------------------------
+        FILE READER
+        ------------------------------------------*/
 
-    /*----------------------------------
-      File Reader
-    ----------------------------------*/
-    if (typeof FileReaderEngine !== "undefined") {
+        if (typeof FileReaderEngine !== "undefined") {
 
-        await FileReaderEngine.open(file);
+            await FileReaderEngine.open(file);
+
+        } else {
+
+            AppState.file = file;
+
+        }
+
+        updateLoading("Reading Metadata...");
+
+        /*------------------------------------------
+        METADATA
+        ------------------------------------------*/
+
+        if (typeof MetadataReader !== "undefined") {
+
+            await MetadataReader.read(file);
+
+        }
+
+        /*------------------------------------------
+        IMAGE
+        ------------------------------------------*/
+
+        if (
+            file.type.startsWith("image") &&
+            typeof ImageLoader !== "undefined"
+        ) {
+
+            updateLoading("Loading Image...");
+
+            await ImageLoader.load(file);
+
+        }
+
+        /*------------------------------------------
+        COLOR
+        ------------------------------------------*/
+
+        if (typeof ColorDetector !== "undefined") {
+
+            updateLoading("Detecting Color Space...");
+
+            await ColorDetector.detect();
+
+        }
+
+        /*------------------------------------------
+        WORKSPACE
+        ------------------------------------------*/
+
+        updateLoading("Opening Workspace...");
+
+        showPage("workspace");
+
+        /*------------------------------------------
+        PREVIEW
+        ------------------------------------------*/
+
+        if (typeof PreviewLoader !== "undefined") {
+
+            PreviewLoader.draw();
+
+        }
+
+        updateStatus("Ready");
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+        alert(error.message || error);
+
+        showPage("home");
 
     }
 
-    updateLoading("Reading Metadata...");
-
-    /*----------------------------------
-      Metadata
-    ----------------------------------*/
-    if (typeof MetadataReader !== "undefined") {
-
-        await MetadataReader.read(file);
-
-    }
-
-    updateLoading("Loading Image...");
-
-    /*----------------------------------
-      Image Loader
-    ----------------------------------*/
-    if (
-        file.type.startsWith("image") &&
-        typeof ImageLoader !== "undefined"
-    ) {
-
-        await ImageLoader.load(file);
-
-    }
-
-    updateLoading("Detecting Color Space...");
-
-    /*----------------------------------
-      Color Detector
-    ----------------------------------*/
-    if (typeof ColorDetector !== "undefined") {
-
-        await ColorDetector.detect();
-
-    }
-
-    updateLoading("Generating Preview...");
-
-    /*----------------------------------
-      Workspace
-    ----------------------------------*/
-    showPage("workspace");
-
-    /*----------------------------------
-      Preview
-    ----------------------------------*/
-    if (typeof PreviewLoader !== "undefined") {
-
-        PreviewLoader.draw();
-
-    }
-
-    updateStatus("Ready");
-
-}
-catch (err) {
-
-    console.error(err);
-
-    alert(err.message);
-
-    showPage("home");
-
-}
-    
 }
