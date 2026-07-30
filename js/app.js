@@ -437,54 +437,6 @@ typeof FreeHandAnalyzer
 
 
 
-
-
-
-
-/*
-=========================
-PREPRESS UI
-=========================
-*/
-
-
-if(
-typeof PrepressPanel !== "undefined"
-){
-
-
-    PrepressPanel.init();
-
-
-    console.log(
-    "✓ Prepress Panel UI"
-    );
-
-
-}
-
-
-
-
-
-
-
-console.log(
-"All Engines Loaded"
-);
-
-
-
-}
-
-
-
-
-
-
-
-
-
 /*=========================================================
 ENGINE CHECK
 =========================================================*/
