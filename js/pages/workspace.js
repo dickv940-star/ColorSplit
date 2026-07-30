@@ -130,15 +130,16 @@ OPEN FILE
             <aside class="right-panel">
 
 
-                <div class="panel">
+       <div class="panel"
+id="colorInspector">
 
 
-                    <h3>
-                    COLOR INSPECTOR
-                    </h3>
+<h3>
+COLOR INSPECTOR
+</h3>
 
 
-                    <pre>
+<pre>
 
 Position
 
@@ -160,16 +161,15 @@ M : -
 Y : -
 K : -
 
+
 HEX
 
 #------
 
-                    </pre>
+</pre>
 
 
-                </div>
-
-
+</div>
 
 
 
