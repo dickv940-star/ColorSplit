@@ -34,5 +34,27 @@ const AppState = {
         modified: ""
 
     }
+metadata: {
 
+    fileName: "",
+    extension: "",
+    mime: "",
+    size: 0,
+
+    width: 0,
+    height: 0,
+
+    dpi: 96,
+
+    colorSpace: "Unknown",
+
+    bitDepth: "Unknown",
+
+    alpha: false,
+
+    aspectRatio: "",
+
+    iccProfile: "-"
+
+}
 };
