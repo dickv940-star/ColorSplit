@@ -1,16 +1,11 @@
 /*
 =========================================================
 ColorSplit Pro
-Router Engine
-Version : 1.0.0
+Router Engine V2
 =========================================================
 */
 
 "use strict";
-
-/*=========================================================
-ROUTES
-=========================================================*/
 
 const Router = {
 
@@ -18,58 +13,62 @@ const Router = {
 
     pages: {
 
-        home: renderHome,
+        home: "renderHome",
 
-        loading: renderLoading,
+        loading: "renderLoading",
 
-        workspace: renderWorkspace
+        workspace: "renderWorkspace"
 
     }
 
 };
 
-/*=========================================================
-SHOW PAGE
-=========================================================*/
+/*=========================================================*/
 
-function showPage(pageName) {
+function showPage(page) {
 
-    if (!Router.pages[pageName]) {
+    const fnName = Router.pages[page];
 
-        console.error("Page tidak ditemukan :", pageName);
+    if (!fnName) {
+
+        console.error("Page tidak ditemukan :", page);
 
         return;
 
     }
 
-    Router.current = pageName;
+    const fn = window[fnName];
 
-    AppState.page = pageName;
+    if (typeof fn !== "function") {
+
+        console.error(fnName + " belum tersedia.");
+
+        return;
+
+    }
+
+    Router.current = page;
+
+    AppState.page = page;
 
     clearApplication();
 
-    Router.pages[pageName]();
+    fn();
 
 }
 
-/*=========================================================
-CLEAR APPLICATION
-=========================================================*/
+/*=========================================================*/
 
 function clearApplication() {
 
     const app = document.getElementById("app");
 
-    if (!app)
-        return;
-
-    app.innerHTML = "";
+    if (app)
+        app.innerHTML = "";
 
 }
 
-/*=========================================================
-GET CURRENT PAGE
-=========================================================*/
+/*=========================================================*/
 
 function getCurrentPage() {
 
@@ -77,19 +76,11 @@ function getCurrentPage() {
 
 }
 
-/*=========================================================
-IS CURRENT PAGE
-=========================================================*/
+function isPage(page) {
 
-function isPage(name) {
-
-    return Router.current === name;
+    return Router.current === page;
 
 }
-
-/*=========================================================
-HOME
-=========================================================*/
 
 function goHome() {
 
@@ -97,19 +88,11 @@ function goHome() {
 
 }
 
-/*=========================================================
-LOADING
-=========================================================*/
-
 function goLoading() {
 
     showPage("loading");
 
 }
-
-/*=========================================================
-WORKSPACE
-=========================================================*/
 
 function goWorkspace() {
 
@@ -117,31 +100,13 @@ function goWorkspace() {
 
 }
 
-/*=========================================================
-REFRESH
-=========================================================*/
-
 function refreshPage() {
 
     showPage(Router.current);
 
 }
 
-/*=========================================================
-DESTROY
-=========================================================*/
-
-function destroyPage() {
-
-    clearApplication();
-
-}
-
-/*=========================================================
-AFTER DOM READY
-=========================================================*/
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Router Ready");
 
