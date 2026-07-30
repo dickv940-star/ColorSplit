@@ -110,3 +110,4 @@ document.getElementById("app").innerHTML=`
 if (typeof PreviewLoader !== "undefined") {
     PreviewLoader.draw();
 }
+}
