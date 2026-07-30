@@ -113,20 +113,14 @@ OPEN FILE
             <section class="canvas-area">
 
 
-            <div class="canvas-area">
+    <canvas
+    id="previewCanvas"
+    width="900"
+    height="600">
+    </canvas>
 
 
-<canvas
-id="previewCanvas"
-width="900"
-height="600">
-</canvas>
-
-
-</div>
-
-
-            </section>
+</section>
 
 
 
