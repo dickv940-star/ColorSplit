@@ -227,7 +227,6 @@ HEX
 }
 
 
-
 function initWorkspace(){
 
 
@@ -236,10 +235,31 @@ function initWorkspace(){
     );
 
 
+
+    const canvas =
+    document.getElementById(
+        "previewCanvas"
+    );
+
+
+
+    if(canvas){
+
+        CanvasEngine.init();
+
+    }
+    else{
+
+        console.error(
+            "Preview Canvas belum dibuat"
+        );
+
+    }
+
+
+
     WorkspaceFile.init();
 
-
-    CanvasEngine.init();
 
 
 
