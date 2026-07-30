@@ -74,9 +74,9 @@ function renderWorkspace(){
         <div class="toolbar">
 
 
-            <button>
-                OPEN FILE
-            </button>
+            <button id="openFileBtn">
+OPEN FILE
+</button>
 
 
             <button>
