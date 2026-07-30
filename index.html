@@ -26,105 +26,103 @@
           content="ColorSplit Pro">
 
     <link rel="manifest"
-          href="manifest.json">
+          href="./manifest.json">
 
     <link rel="icon"
-          href="assets/logo.png">
+          href="./assets/logo.png">
 
     <link rel="apple-touch-icon"
-          href="assets/logo.png">
+          href="./assets/logo.png">
 
-    <!-- CSS -->
+    <!-- ==========================================
+         CSS
+    =========================================== -->
 
-    <link rel="stylesheet"
-          href="css/style.css">
-
-    <link rel="stylesheet"
-          href="css/home.css">
-
-    <link rel="stylesheet"
-          href="css/loading.css">
-
-    <link rel="stylesheet"
-          href="css/workspace.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/loading.css">
+    <link rel="stylesheet" href="./css/workspace.css">
 
 </head>
 
 <body>
 
-    <!-- =====================================
-         APPLICATION ROOT
-    ====================================== -->
+    <!-- ==========================================
+         APP ROOT
+    =========================================== -->
 
     <div id="app"></div>
 
-    <!-- =====================================
+    <!-- ==========================================
          CORE
-    ====================================== -->
+    =========================================== -->
 
-    <script src="js/state.js"></script>
+    <script src="./js/state.js"></script>
+    <script src="./js/router.js"></script>
 
-    <script src="js/router.js"></script>
-
-    <!-- =====================================
+    <!-- ==========================================
          UTILS
-    ====================================== -->
+    =========================================== -->
 
-    <script src="js/utils/helper.js"></script>
+    <script src="./js/utils/helper.js"></script>
 
-    <!-- =====================================
+    <!-- ==========================================
          ENGINES
-    ====================================== -->
+    =========================================== -->
 
-    <script src="js/engines/previewEngine.js"></script>
+    <script src="./js/engines/fileReader.js"></script>
+    <script src="./js/engines/metadataReader.js"></script>
+    <script src="./js/engines/imageLoader.js"></script>
+    <script src="./js/engines/colorDetector.js"></script>
+    <script src="./js/engines/previewLoader.js"></script>
+
+    <!-- Engine berikut akan ditambahkan nanti -->
 
     <!--
-    importEngine.js
-    colorEngine.js
-    separationEngine.js
-    exportEngine.js
-
-    Akan ditambahkan pada milestone berikutnya.
+    <script src="./js/engines/pdfReader.js"></script>
+    <script src="./js/engines/tiffReader.js"></script>
+    <script src="./js/engines/iccReader.js"></script>
+    <script src="./js/engines/histogramEngine.js"></script>
+    <script src="./js/engines/separationEngine.js"></script>
+    <script src="./js/engines/exportEngine.js"></script>
     -->
 
-    <!-- =====================================
+    <!-- ==========================================
          PAGES
-    ====================================== -->
+    =========================================== -->
 
-    <script src="js/pages/home.js"></script>
+    <script src="./js/pages/home.js"></script>
+    <script src="./js/pages/loading.js"></script>
+    <script src="./js/pages/workspace.js"></script>
 
-    <script src="js/pages/loading.js"></script>
+    <!-- ==========================================
+         MAIN APPLICATION
+    =========================================== -->
 
-    <script src="js/pages/workspace.js"></script>
+    <script src="./js/app.js"></script>
 
-    <!-- =====================================
-         MAIN APP
-    ====================================== -->
-
-    <script src="js/app.js"></script>
-
-    <!-- =====================================
+    <!-- ==========================================
          SERVICE WORKER
-    ====================================== -->
+    =========================================== -->
 
     <script>
 
-    if("serviceWorker" in navigator){
+    if ("serviceWorker" in navigator) {
 
-        window.addEventListener("load",()=>{
+        window.addEventListener("load", () => {
 
             navigator.serviceWorker
-            .register("./sw.js")
-            .then(reg=>{
+                .register("./sw.js")
+                .then(reg => {
 
-                console.log("Service Worker Registered",reg);
+                    console.log("Service Worker Registered");
 
-            })
-            .catch(err=>{
+                })
+                .catch(err => {
 
-                console.error("SW Error",err);
+                    console.error("Service Worker Error", err);
 
-            });
+                });
 
         });
 
