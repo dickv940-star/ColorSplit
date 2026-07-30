@@ -1,139 +1,141 @@
-/**
- * ICC Converter Engine v1.0
- * ColorSplit Pro
- *
- * ICC Color Management Core
- */
+/*
+=========================================================
+ICC Converter Engine
+ColorSplit Pro
+Version : 2.0.0
+=========================================================
+*/
+
+
+"use strict";
 
 
 const ICCConverter = {
 
 
-    profile:{
 
-        RGB:
-        "sRGB IEC61966-2.1",
-
-        CMYK:
-        "Coated FOGRA39"
-
-    },
+profile:
+"FOGRA39",
 
 
 
-    init(){
-
-        console.log(
-            "ICC Converter Ready"
-        );
-
-        console.log(
-            this.profile
-        );
-
-    },
 
 
-
-    setProfile(type,name){
-
-        if(type==="RGB"){
-
-            this.profile.RGB=name;
-
-        }
+init(){
 
 
-        if(type==="CMYK"){
-
-            this.profile.CMYK=name;
-
-        }
+console.log(
+"ICC Converter Ready"
+);
 
 
-    },
+},
 
 
 
-    getProfile(){
-
-        return this.profile;
-
-    },
 
 
-
-    convertRGBtoCMYK(rgb){
-
-
-        /*
-          Temporary fallback converter
-
-          Nanti dapat diganti
-          ICC transform engine
-        */
+setProfile(profile){
 
 
-        let r =
-        rgb.r/255;
-
-        let g =
-        rgb.g/255;
-
-        let b =
-        rgb.b/255;
+this.profile =
+profile;
 
 
 
-        let k =
-        1-Math.max(r,g,b);
+},
 
 
 
-        let c =
-        (1-r-k)/(1-k)||0;
 
 
-        let m =
-        (1-g-k)/(1-k)||0;
-
-
-        let y =
-        (1-b-k)/(1-k)||0;
+convertRGBtoCMYK(rgb){
 
 
 
-        return {
+let r =
+rgb.r / 255;
 
 
-            C:
-            +(c*100).toFixed(2),
+let g =
+rgb.g / 255;
 
 
-            M:
-            +(m*100).toFixed(2),
+let b =
+rgb.b / 255;
 
 
-            Y:
-            +(y*100).toFixed(2),
 
 
-            K:
-            +(k*100).toFixed(2),
+let k =
+1 -
+Math.max(
+r,
+g,
+b
+);
 
 
-            profile:
-            this.profile.CMYK
 
 
-        };
+let c =
+(1-r-k) /
+(1-k || 1);
 
 
-    }
+
+let m =
+(1-g-k) /
+(1-k || 1);
+
+
+
+let y =
+(1-b-k) /
+(1-k || 1);
+
+
+
+
+return {
+
+
+
+C:
+Math.round(c*100),
+
+
+M:
+Math.round(m*100),
+
+
+Y:
+Math.round(y*100),
+
+
+K:
+Math.round(k*100),
+
+
+
+profile:
+this.profile
 
 
 
 };
+
+
+
+}
+
+
+
+
+
+};
+
+
 
 
 window.ICCConverter =
