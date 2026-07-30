@@ -136,7 +136,7 @@ async function onFileSelected(event) {
             updateLoading("Detecting Color Space...");
 
             await ColorDetector.detect();
-
+            updateWorkspaceMetadata();
         }
 
         /*------------------------------------------
