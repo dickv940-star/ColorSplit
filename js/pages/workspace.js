@@ -1,10 +1,29 @@
-function renderWorkspace(){
+/*
+=========================================================
+ColorSplit Pro
+Workspace Page
+Version : 2.0.0
+=========================================================
+*/
 
-document.getElementById("app").innerHTML=`
+"use strict";
+
+/*=========================================================
+RENDER WORKSPACE
+=========================================================*/
+
+function renderWorkspace() {
+
+    const app = document.getElementById("app");
+
+    const file = AppState.file || {};
+
+    app.innerHTML = `
 
 <div class="workspace">
 
-    <!-- TOP BAR -->
+    <!-- ================= TOP BAR ================= -->
+
     <div class="topbar">
 
         <div class="top-left">
@@ -21,7 +40,7 @@ document.getElementById("app").innerHTML=`
 
     </div>
 
-    <!-- LEFT PANEL -->
+    <!-- ================= LEFT ================= -->
 
     <div class="sidebar">
 
@@ -39,7 +58,7 @@ document.getElementById("app").innerHTML=`
 
     </div>
 
-    <!-- CENTER -->
+    <!-- ================= CENTER ================= -->
 
     <div class="viewer">
 
@@ -47,7 +66,7 @@ document.getElementById("app").innerHTML=`
 
     </div>
 
-    <!-- RIGHT PANEL -->
+    <!-- ================= RIGHT ================= -->
 
     <div class="properties">
 
@@ -55,17 +74,24 @@ document.getElementById("app").innerHTML=`
 
         <div class="property">
             <label>File Name</label>
-            <span>${AppState.file.name}</span>
+            <span id="fileName">${file.name || "-"}</span>
         </div>
 
         <div class="property">
             <label>File Size</label>
-            <span>${formatFileSize(AppState.file.size)}</span>
+            <span id="fileSize">
+                ${file.size ? formatFileSize(file.size) : "-"}
+            </span>
         </div>
 
         <div class="property">
             <label>Type</label>
-            <span>${AppState.file.type || "-"}</span>
+            <span id="fileType">${file.type || "-"}</span>
+        </div>
+
+        <div class="property">
+            <label>Extension</label>
+            <span id="extension">-</span>
         </div>
 
         <div class="property">
@@ -79,13 +105,33 @@ document.getElementById("app").innerHTML=`
         </div>
 
         <div class="property">
+            <label>Aspect Ratio</label>
+            <span id="aspectRatio">-</span>
+        </div>
+
+        <div class="property">
+            <label>Bit Depth</label>
+            <span id="bitDepth">-</span>
+        </div>
+
+        <div class="property">
+            <label>Alpha Channel</label>
+            <span id="alpha">-</span>
+        </div>
+
+        <div class="property">
             <label>DPI</label>
             <span id="dpi">-</span>
         </div>
 
+        <div class="property">
+            <label>ICC Profile</label>
+            <span id="iccProfile">-</span>
+        </div>
+
     </div>
 
-    <!-- STATUS BAR -->
+    <!-- ================= STATUS ================= -->
 
     <div class="statusbar">
 
@@ -97,7 +143,7 @@ document.getElementById("app").innerHTML=`
 
         <span>
 
-            ColorSplit Pro V1.0
+            ColorSplit Pro V2.0
 
         </span>
 
@@ -107,7 +153,125 @@ document.getElementById("app").innerHTML=`
 
 `;
 
-if (typeof PreviewLoader !== "undefined") {
-    PreviewLoader.draw();
+    /*=========================================
+      DRAW PREVIEW
+    =========================================*/
+
+    if (typeof PreviewLoader !== "undefined") {
+
+        PreviewLoader.draw();
+
+    }
+
+    /*=========================================
+      UPDATE METADATA
+    =========================================*/
+
+    updateWorkspaceMetadata();
+
 }
+
+/*=========================================================
+UPDATE METADATA PANEL
+=========================================================*/
+
+function updateWorkspaceMetadata() {
+
+    if (!AppState.metadata)
+        return;
+
+    const m = AppState.metadata;
+
+    setValue("fileName", m.fileName || "-");
+    setValue("extension", m.extension || "-");
+    setValue("fileType", m.mime || "-");
+    setValue("fileSize", formatFileSize(m.size || 0));
+
+    setValue("colorSpace", m.colorSpace || "Unknown");
+
+    setValue(
+        "resolution",
+        (m.width || 0) + " × " + (m.height || 0)
+    );
+
+    setValue("aspectRatio", m.aspectRatio || "-");
+
+    setValue("bitDepth", m.bitDepth || "-");
+
+    setValue(
+        "alpha",
+        m.alpha ? "Yes" : "No"
+    );
+
+    setValue(
+        "dpi",
+        (m.dpi || 96) + " DPI"
+    );
+
+    setValue(
+        "iccProfile",
+        m.iccProfile || "-"
+    );
+
 }
+
+/*=========================================================
+SET VALUE
+=========================================================*/
+
+function setValue(id, value) {
+
+    const el = document.getElementById(id);
+
+    if (el) {
+
+        el.textContent = value;
+
+    }
+
+}
+
+/*=========================================================
+CHANNEL BUTTONS
+=========================================================*/
+
+document.addEventListener("click", function (e) {
+
+    switch (e.target.id) {
+
+        case "btnOriginal":
+
+            if (typeof PreviewLoader !== "undefined")
+                PreviewLoader.draw();
+
+            updateStatus("Original Preview");
+
+            break;
+
+        case "btnC":
+
+            updateStatus("Cyan Channel");
+
+            break;
+
+        case "btnM":
+
+            updateStatus("Magenta Channel");
+
+            break;
+
+        case "btnY":
+
+            updateStatus("Yellow Channel");
+
+            break;
+
+        case "btnK":
+
+            updateStatus("Black Channel");
+
+            break;
+
+    }
+
+});
