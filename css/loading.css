@@ -1,0 +1,107 @@
+/* ===========================================
+   LOADING PAGE
+=========================================== */
+
+.loading{
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    background:#000;
+
+    color:#fff;
+}
+
+.loading h2{
+
+    font-size:30px;
+
+    margin-bottom:30px;
+
+    font-weight:600;
+
+}
+
+.spinner{
+
+    width:70px;
+    height:70px;
+
+    border:6px solid #222;
+
+    border-top:6px solid #00bfff;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin-bottom:30px;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+#loadingText{
+
+    font-size:18px;
+
+    color:#aaaaaa;
+
+    margin-bottom:30px;
+
+}
+
+.progress{
+
+    width:320px;
+
+    height:8px;
+
+    background:#222;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    width:0%;
+
+    height:100%;
+
+    background:#00bfff;
+
+    transition:.3s;
+
+}
+
+.loading-step{
+
+    margin-top:15px;
+
+    font-size:14px;
+
+    color:#777;
+
+}
