@@ -277,7 +277,15 @@ typeof PreviewLoader
 
 
 
+if(
+typeof PrepressPanel !== "undefined"
+){
 
+    console.log(
+    "✓ Prepress Panel Engine Ready"
+    );
+
+}
 
 
 
