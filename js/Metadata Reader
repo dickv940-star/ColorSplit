@@ -1,0 +1,12 @@
+function readBasicMetadata(file){
+
+    AppState.metadata.name=file.name;
+
+    AppState.metadata.type=file.type;
+
+    AppState.metadata.size=file.size;
+
+    AppState.metadata.modified=new Date(file.lastModified)
+        .toLocaleString();
+
+}
