@@ -549,7 +549,70 @@ function initializeEngines(){
 
 }
 
+/*
+=========================
+FREEHAND CORE ENGINE
+=========================
+*/
 
+
+if(
+    typeof ObjectDetector !== "undefined"
+){
+
+    console.log(
+        "✓ Object Detector"
+    );
+
+}
+
+
+
+if(
+    typeof FillDetector !== "undefined"
+){
+
+    console.log(
+        "✓ Fill Detector"
+    );
+
+}
+
+
+
+if(
+    typeof StrokeDetector !== "undefined"
+){
+
+    console.log(
+        "✓ Stroke Detector"
+    );
+
+}
+
+
+
+if(
+    typeof TextDetector !== "undefined"
+){
+
+    console.log(
+        "✓ Text Detector"
+    );
+
+}
+
+
+
+if(
+    typeof LayerBuilder !== "undefined"
+){
+
+    console.log(
+        "✓ Layer Builder"
+    );
+
+}
 
 /*=========================================================
 STATUS
