@@ -331,12 +331,14 @@ ICC Profile
 <!-- PREPRESS RESULT -->
 
 
-<div id="prepressPanel">
+<hr>
 
+<div id="colorInspector">
 
 </div>
 
 
+<div id="prepressPanel">
 
 </div>
 
