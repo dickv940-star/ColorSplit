@@ -107,6 +107,6 @@ document.getElementById("app").innerHTML=`
 
 `;
 
-loadPreview();
-
+if (typeof PreviewLoader !== "undefined") {
+    PreviewLoader.draw();
 }
