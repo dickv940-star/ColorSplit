@@ -122,6 +122,10 @@ function updateStatus(text) {
 
 }
 
+/*=========================================================
+LOADING
+=========================================================*/
+
 function updateLoading(text) {
 
     const loading = document.getElementById("loadingText");
@@ -132,6 +136,7 @@ function updateLoading(text) {
 
     }
 
+}
 
 /*=========================================================
 ERROR
