@@ -246,7 +246,42 @@ function initWorkspace(){
 }
 
 
+function initWorkspace(){
 
+
+    console.log(
+        "Workspace Initialized"
+    );
+
+
+
+    WorkspaceFile.init();
+
+
+
+    const btn =
+    document.getElementById(
+        "openFileBtn"
+    );
+
+
+
+    if(btn){
+
+
+        btn.onclick=function(){
+
+
+            WorkspaceFile.select();
+
+
+        };
+
+
+    }
+
+
+}
 
 
 
