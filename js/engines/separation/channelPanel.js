@@ -101,3 +101,40 @@ return this.channels;
 
 window.ChannelPanel =
 ChannelPanel;
+
+panel.innerHTML +=`
+
+<div class="channel-item">
+
+
+<canvas
+id="thumb-${code}"
+width="80"
+height="60">
+</canvas>
+
+
+<button>
+
+${c.visible?"👁":"○"}
+
+</button>
+
+
+<b>
+${code}
+ ${c.name}
+</b>
+
+
+<input
+type="range"
+min="0"
+max="150"
+value="${c.opacity}"
+>
+
+
+</div>
+
+`;
