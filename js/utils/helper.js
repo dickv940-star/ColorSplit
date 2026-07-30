@@ -162,3 +162,26 @@ function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
 
 }
+function gcd(a,b){
+
+    while(b){
+
+        let t=b;
+
+        b=a%b;
+
+        a=t;
+
+    }
+
+    return a;
+
+}
+
+function simplifyRatio(w,h){
+
+    let g=gcd(w,h);
+
+    return (w/g)+" : "+(h/g);
+
+}
