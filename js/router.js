@@ -1,7 +1,10 @@
 /*
 =========================================================
 ColorSplit Pro
-Router Engine V2
+Router Engine
+Version : 3.0.0
+Architecture : Workspace PRO
+Author : AppDIGI
 =========================================================
 */
 
@@ -13,35 +16,27 @@ const Router = {
 
     pages: {
 
-        home: "renderHome",
+        home: renderHome,
 
-        loading: "renderLoading",
+        loading: renderLoading,
 
-        workspace: "Workspace.render();e"
+        workspace: renderWorkspace
 
     }
 
 };
 
-/*=========================================================*/
+/*=========================================================
+SHOW PAGE
+=========================================================*/
 
-function showPage(page) {
+function showPage(page){
 
-    const fnName = Router.pages[page];
+    const renderer = Router.pages[page];
 
-    if (!fnName) {
+    if(typeof renderer !== "function"){
 
-        console.error("Page tidak ditemukan :", page);
-
-        return;
-
-    }
-
-    const fn = window[fnName];
-
-    if (typeof fn !== "function") {
-
-        console.error(fnName + " belum tersedia.");
+        console.error("Renderer tidak ditemukan :", page);
 
         return;
 
@@ -49,65 +44,104 @@ function showPage(page) {
 
     Router.current = page;
 
-    AppState.page = page;
+    if(typeof AppState !== "undefined"){
+
+        AppState.page = page;
+
+    }
 
     clearApplication();
 
-    fn();
+    renderer();
 
 }
 
-/*=========================================================*/
+/*=========================================================
+CLEAR APPLICATION
+=========================================================*/
 
-function clearApplication() {
+function clearApplication(){
 
     const app = document.getElementById("app");
 
-    if (app)
+    if(app){
+
         app.innerHTML = "";
 
-}
-
-/*=========================================================*/
-
-function getCurrentPage() {
-
-    return Router.current;
+    }
 
 }
 
-function isPage(page) {
+/*=========================================================
+NAVIGATION
+=========================================================*/
 
-    return Router.current === page;
-
-}
-
-function goHome() {
+function goHome(){
 
     showPage("home");
 
 }
 
-function goLoading() {
+function goLoading(){
 
     showPage("loading");
 
 }
 
-function goWorkspace() {
+function goWorkspace(){
 
     showPage("workspace");
 
 }
 
-function refreshPage() {
+function refreshPage(){
 
     showPage(Router.current);
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+/*=========================================================
+HELPER
+=========================================================*/
 
-    console.log("Router Ready");
+function getCurrentPage(){
+
+    return Router.current;
+
+}
+
+function isPage(page){
+
+    return Router.current === page;
+
+}
+
+/*=========================================================
+GLOBAL EXPORT
+=========================================================*/
+
+window.Router = Router;
+
+window.showPage = showPage;
+
+window.goHome = goHome;
+
+window.goLoading = goLoading;
+
+window.goWorkspace = goWorkspace;
+
+window.refreshPage = refreshPage;
+
+window.getCurrentPage = getCurrentPage;
+
+window.isPage = isPage;
+
+/*=========================================================
+READY
+=========================================================*/
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+    console.log("✓ Router Ready");
 
 });
