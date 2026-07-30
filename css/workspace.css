@@ -1,0 +1,211 @@
+/* ===========================================
+   WORKSPACE
+=========================================== */
+
+.workspace{
+
+    width:100%;
+
+    height:100vh;
+
+    display:grid;
+
+    grid-template-columns:220px 1fr 300px;
+
+    grid-template-rows:60px 1fr 28px;
+
+    background:#111;
+
+}
+
+/* ===========================================
+   TOPBAR
+=========================================== */
+
+.topbar{
+
+    grid-column:1 / 4;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    background:#1b1b1b;
+
+    border-bottom:1px solid #333;
+
+}
+
+.topbar h1{
+
+    font-size:20px;
+
+    color:#fff;
+
+}
+
+/* ===========================================
+   SIDEBAR
+=========================================== */
+
+.sidebar{
+
+    background:#181818;
+
+    border-right:1px solid #333;
+
+    padding:15px;
+
+    overflow:auto;
+
+}
+
+.sidebar h3{
+
+    color:#ffffff;
+
+    margin-bottom:15px;
+
+}
+
+.sidebar button{
+
+    width:100%;
+
+    margin-bottom:10px;
+
+    padding:12px;
+
+    background:#242424;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.sidebar button:hover{
+
+    background:#00bfff;
+
+    color:#000;
+
+}
+
+/* ===========================================
+   PREVIEW
+=========================================== */
+
+.viewer{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#2a2a2a;
+
+}
+
+.viewer canvas{
+
+    background:white;
+
+    box-shadow:0 0 20px rgba(0,0,0,.6);
+
+}
+
+.viewer h2{
+
+    color:#fff;
+
+}
+
+/* ===========================================
+   PROPERTY PANEL
+=========================================== */
+
+.properties{
+
+    background:#181818;
+
+    border-left:1px solid #333;
+
+    padding:15px;
+
+    color:white;
+
+    overflow:auto;
+
+}
+
+.properties h3{
+
+    margin-bottom:20px;
+
+}
+
+.property{
+
+    margin-bottom:12px;
+
+}
+
+.property label{
+
+    display:block;
+
+    color:#888;
+
+    font-size:13px;
+
+    margin-bottom:4px;
+
+}
+
+.property span{
+
+    color:#fff;
+
+}
+
+/* ===========================================
+   STATUS BAR
+=========================================== */
+
+.statusbar{
+
+    grid-column:1 / 4;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 15px;
+
+    background:#1a1a1a;
+
+    border-top:1px solid #333;
+
+    color:#999;
+
+    font-size:13px;
+
+}
