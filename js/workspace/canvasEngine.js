@@ -50,11 +50,13 @@ window.CanvasEngine = {
 
 
 
-        this.ctx =
-        this.canvas.getContext(
-            "2d"
-        );
-
+       this.ctx =
+this.canvas.getContext(
+    "2d",
+    {
+        willReadFrequently:true
+    }
+);
 
 
         WorkspaceState.canvas =
