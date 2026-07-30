@@ -113,13 +113,17 @@ OPEN FILE
             <section class="canvas-area">
 
 
-                <div class="canvas-placeholder">
+            <div class="canvas-area">
 
 
-                    PREVIEW CANVAS
+<canvas
+id="previewCanvas"
+width="900"
+height="600">
+</canvas>
 
 
-                </div>
+</div>
 
 
             </section>
@@ -230,32 +234,18 @@ HEX
 
 
 
-
-
-
-
 function initWorkspace(){
 
 
     console.log(
         "Workspace Initialized"
     );
-
-
-
-}
-
-
-function initWorkspace(){
-
-
-    console.log(
-        "Workspace Initialized"
-    );
-
 
 
     WorkspaceFile.init();
+
+
+    CanvasEngine.init();
 
 
 
@@ -271,9 +261,7 @@ function initWorkspace(){
 
         btn.onclick=function(){
 
-
             WorkspaceFile.select();
-
 
         };
 
@@ -282,7 +270,6 @@ function initWorkspace(){
 
 
 }
-
 
 
 
