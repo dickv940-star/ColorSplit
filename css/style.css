@@ -1,0 +1,45 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.home{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+}
+
+h1{
+    font-size:38px;
+}
+
+p{
+    color:#999;
+}
+
+button{
+    padding:14px 28px;
+    border:none;
+    border-radius:10px;
+    background:#ffffff;
+    color:#000;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
