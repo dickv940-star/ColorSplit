@@ -4,26 +4,109 @@ document.getElementById("app").innerHTML=`
 
 <div class="workspace">
 
-<div class="sidebar">
+    <!-- TOP BAR -->
+    <div class="topbar">
 
-<button>Original</button>
-<button>Cyan</button>
-<button>Magenta</button>
-<button>Yellow</button>
-<button>Black</button>
+        <div class="top-left">
 
-</div>
+            <strong>ColorSplit Pro</strong>
 
-<div class="viewer">
+        </div>
 
-<h2>${AppState.file.name}</h2>
+        <div class="top-right">
 
-<p>Preview Engine Coming Soon</p>
+            <span id="zoomLevel">100%</span>
 
-</div>
+        </div>
+
+    </div>
+
+    <!-- LEFT PANEL -->
+
+    <div class="sidebar">
+
+        <h3>Channels</h3>
+
+        <button id="btnOriginal">Original</button>
+
+        <button id="btnC">Cyan</button>
+
+        <button id="btnM">Magenta</button>
+
+        <button id="btnY">Yellow</button>
+
+        <button id="btnK">Black</button>
+
+    </div>
+
+    <!-- CENTER -->
+
+    <div class="viewer">
+
+        <canvas id="previewCanvas"></canvas>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="properties">
+
+        <h3>File Information</h3>
+
+        <div class="property">
+            <label>File Name</label>
+            <span>${AppState.file.name}</span>
+        </div>
+
+        <div class="property">
+            <label>File Size</label>
+            <span>${formatFileSize(AppState.file.size)}</span>
+        </div>
+
+        <div class="property">
+            <label>Type</label>
+            <span>${AppState.file.type || "-"}</span>
+        </div>
+
+        <div class="property">
+            <label>Color Space</label>
+            <span id="colorSpace">Detecting...</span>
+        </div>
+
+        <div class="property">
+            <label>Resolution</label>
+            <span id="resolution">-</span>
+        </div>
+
+        <div class="property">
+            <label>DPI</label>
+            <span id="dpi">-</span>
+        </div>
+
+    </div>
+
+    <!-- STATUS BAR -->
+
+    <div class="statusbar">
+
+        <span id="statusText">
+
+            Ready
+
+        </span>
+
+        <span>
+
+            ColorSplit Pro V1.0
+
+        </span>
+
+    </div>
 
 </div>
 
 `;
+
+loadPreview();
 
 }
