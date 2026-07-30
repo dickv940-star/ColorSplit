@@ -541,7 +541,61 @@ function initializeEngines(){
 
     }
 
+/*
+=========================
+PREPRESS UI
+=========================
+*/
 
+
+if(
+typeof PrepressPanel !== "undefined"
+){
+
+    PrepressPanel.init();
+
+
+    console.log(
+        "✓ Prepress Panel UI"
+    );
+
+}
+
+
+
+if(
+typeof ObjectPanel !== "undefined"
+){
+
+    console.log(
+        "✓ Object Panel"
+    );
+
+}
+
+
+
+if(
+typeof ColorPanel !== "undefined"
+){
+
+    console.log(
+        "✓ Color Panel"
+    );
+
+}
+
+
+
+if(
+typeof PrintPanel !== "undefined"
+){
+
+    console.log(
+        "✓ Print Panel"
+    );
+
+}
 
     console.log(
         "All Engines Loaded"
