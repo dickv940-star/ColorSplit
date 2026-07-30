@@ -1,28 +1,25 @@
 /*
-=========================================
+=========================================================
 Color Detector
-=========================================
+=========================================================
 */
 
-const ColorDetector = {
+"use strict";
 
-    async detect() {
+const ColorDetector={
 
-        const type = AppState.file.type;
+    async detect(){
 
-        if (type === "image/png") {
+        if(!AppState.image)
+            return;
 
-            AppState.metadata.alpha = true;
+        AppState.metadata.colorSpace="RGB";
+
+        if(AppState.metadata.alpha){
+
+            AppState.metadata.colorSpace+=" + Alpha";
 
         }
-
-        AppState.metadata.colorSpace = "RGB";
-
-        AppState.metadata.bitDepth = "24 Bit";
-
-        AppState.metadata.iccProfile = "sRGB";
-
-        return AppState.metadata;
 
     }
 
