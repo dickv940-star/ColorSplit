@@ -1,8 +1,8 @@
 /*
 =========================================================
 ColorSplit Pro
-Metadata Reader
-Version 2.0
+Metadata Reader Engine
+Version : 2.0.0
 =========================================================
 */
 
@@ -23,35 +23,71 @@ const MetadataReader = {
                 AppState.metadata.extension =
                     file.name.split(".").pop().toUpperCase();
 
-                AppState.metadata.mime = file.type;
+                AppState.metadata.mime =
+                    file.type;
 
-                AppState.metadata.size = file.size;
+                AppState.metadata.size =
+                    file.size;
 
-                AppState.metadata.width = img.width;
+                AppState.metadata.width =
+                    img.width;
 
-                AppState.metadata.height = img.height;
+                AppState.metadata.height =
+                    img.height;
 
                 AppState.metadata.aspectRatio =
-                    simplifyRatio(img.width,img.height);
+                    getAspectRatio(
+                        img.width,
+                        img.height
+                    );
+
+                AppState.metadata.dpi = 96;
+
+                AppState.metadata.bitDepth = "8-bit";
 
                 AppState.metadata.alpha =
-                    file.type==="image/png" ||
-                    file.type==="image/webp";
+                    (
+                        file.type==="image/png" ||
+                        file.type==="image/webp"
+                    );
 
-                AppState.metadata.bitDepth="8-bit";
-
-                AppState.metadata.dpi=96;
+                AppState.metadata.iccProfile =
+                    "sRGB";
 
                 resolve();
 
             };
 
-            img.onerror=reject;
+            img.onerror = reject;
 
-            img.src=URL.createObjectURL(file);
+            img.src = URL.createObjectURL(file);
 
         });
 
     }
 
 };
+
+/*=========================================================
+Aspect Ratio
+=========================================================*/
+
+function getAspectRatio(w,h){
+
+    let a=w;
+
+    let b=h;
+
+    while(b){
+
+        let t=b;
+
+        b=a%b;
+
+        a=t;
+
+    }
+
+    return (w/a)+" : "+(h/a);
+
+}
