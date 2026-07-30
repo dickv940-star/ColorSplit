@@ -72,87 +72,89 @@ async function onFileSelected(e) {
     if (!file)
         return;
 
-    try {
+   try {
 
-        setStatus("Reading File...");
+    // Pindah ke halaman loading terlebih dahulu
+    showPage("loading");
 
-        showPage("loading");
+    // Update teks loading (jika ada)
+    updateLoading("Reading File...");
 
-        /*----------------------------------
-        File Reader
-        ----------------------------------*/
+    // Simpan file ke state
+    AppState.file = file;
 
-        if (typeof FileReaderEngine !== "undefined") {
+    /*----------------------------------
+      File Reader
+    ----------------------------------*/
+    if (typeof FileReaderEngine !== "undefined") {
 
-            await FileReaderEngine.open(file);
-
-        } else {
-
-            AppState.file = file;
-
-        }
-
-        /*----------------------------------
-        Metadata
-        ----------------------------------*/
-
-        if (typeof MetadataReader !== "undefined") {
-
-            await MetadataReader.read(file);
-
-        }
-
-        /*----------------------------------
-        Image Loader
-        ----------------------------------*/
-
-        if (
-            file.type.startsWith("image") &&
-            typeof ImageLoader !== "undefined"
-        ) {
-
-            await ImageLoader.load(file);
-
-        }
-
-        /*----------------------------------
-        Color Detector
-        ----------------------------------*/
-
-        if (typeof ColorDetector !== "undefined") {
-
-            await ColorDetector.detect();
-
-        }
-
-        /*----------------------------------
-        Workspace
-        ----------------------------------*/
-
-        showPage("workspace");
-
-        /*----------------------------------
-        Preview
-        ----------------------------------*/
-
-        if (typeof PreviewLoader !== "undefined") {
-
-            PreviewLoader.draw();
-
-        }
-
-        setStatus("Ready");
+        await FileReaderEngine.open(file);
 
     }
 
-    catch (err) {
+    updateLoading("Reading Metadata...");
 
-        console.error(err);
+    /*----------------------------------
+      Metadata
+    ----------------------------------*/
+    if (typeof MetadataReader !== "undefined") {
 
-        alert(err.message);
-
-        showPage("home");
+        await MetadataReader.read(file);
 
     }
 
+    updateLoading("Loading Image...");
+
+    /*----------------------------------
+      Image Loader
+    ----------------------------------*/
+    if (
+        file.type.startsWith("image") &&
+        typeof ImageLoader !== "undefined"
+    ) {
+
+        await ImageLoader.load(file);
+
+    }
+
+    updateLoading("Detecting Color Space...");
+
+    /*----------------------------------
+      Color Detector
+    ----------------------------------*/
+    if (typeof ColorDetector !== "undefined") {
+
+        await ColorDetector.detect();
+
+    }
+
+    updateLoading("Generating Preview...");
+
+    /*----------------------------------
+      Workspace
+    ----------------------------------*/
+    showPage("workspace");
+
+    /*----------------------------------
+      Preview
+    ----------------------------------*/
+    if (typeof PreviewLoader !== "undefined") {
+
+        PreviewLoader.draw();
+
+    }
+
+    updateStatus("Ready");
+
+}
+catch (err) {
+
+    console.error(err);
+
+    alert(err.message);
+
+    showPage("home");
+
+}
+    
 }
