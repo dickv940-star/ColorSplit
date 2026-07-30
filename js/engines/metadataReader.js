@@ -1,45 +1,56 @@
 /*
-=========================================
+=========================================================
+ColorSplit Pro
 Metadata Reader
-=========================================
+Version 2.0
+=========================================================
 */
+
+"use strict";
 
 const MetadataReader = {
 
-    async read(file) {
+    async read(file){
 
-        AppState.metadata = {
+        return new Promise((resolve,reject)=>{
 
-            name: file.name,
+            const img = new Image();
 
-            type: file.type,
+            img.onload = ()=>{
 
-            size: file.size,
+                AppState.metadata.fileName = file.name;
 
-            extension: file.name.split(".").pop().toUpperCase(),
+                AppState.metadata.extension =
+                    file.name.split(".").pop().toUpperCase();
 
-            modified: new Date(file.lastModified)
-                .toLocaleString(),
+                AppState.metadata.mime = file.type;
 
-            width: 0,
+                AppState.metadata.size = file.size;
 
-            height: 0,
+                AppState.metadata.width = img.width;
 
-            dpi: 96,
+                AppState.metadata.height = img.height;
 
-            aspectRatio: "",
+                AppState.metadata.aspectRatio =
+                    simplifyRatio(img.width,img.height);
 
-            colorSpace: "Unknown",
+                AppState.metadata.alpha =
+                    file.type==="image/png" ||
+                    file.type==="image/webp";
 
-            bitDepth: "-",
+                AppState.metadata.bitDepth="8-bit";
 
-            alpha: false,
+                AppState.metadata.dpi=96;
 
-            iccProfile: "Unknown"
+                resolve();
 
-        };
+            };
 
-        return AppState.metadata;
+            img.onerror=reject;
+
+            img.src=URL.createObjectURL(file);
+
+        });
 
     }
 
