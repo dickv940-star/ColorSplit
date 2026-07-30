@@ -44,13 +44,13 @@ function initApp() {
 
     }
 
-    if (typeof Router === "undefined") {
+   if(typeof showPage!=="function"){
 
-        console.error("Router tidak ditemukan.");
+    console.error("Router belum siap.");
 
-        return;
+    return;
 
-    }
+}
 
     initializeState();
 
