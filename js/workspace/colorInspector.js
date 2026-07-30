@@ -222,7 +222,90 @@ window.PixelInspector = {
     }
 
 
+,
 
+
+updatePanel:function(
+    x,
+    y,
+    rgb,
+    cmyk,
+    hex
+){
+
+
+    const panel =
+    document.getElementById(
+        "colorInspector"
+    );
+
+
+
+    if(!panel){
+
+        console.warn(
+            "Panel Color Inspector belum tersedia"
+        );
+
+        return;
+
+    }
+
+
+
+
+    panel.innerHTML = `
+
+
+    <h3>
+    COLOR INSPECTOR
+    </h3>
+
+
+    <pre>
+
+Position
+
+X : ${x}
+
+Y : ${y}
+
+
+
+RGB
+
+R : ${rgb.r}
+
+G : ${rgb.g}
+
+B : ${rgb.b}
+
+
+
+CMYK
+
+C : ${cmyk.c} %
+
+M : ${cmyk.m} %
+
+Y : ${cmyk.y} %
+
+K : ${cmyk.k} %
+
+
+
+HEX
+
+${hex.toUpperCase()}
+
+
+    </pre>
+
+
+    `;
+
+
+}
 
 
 
