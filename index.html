@@ -3,101 +3,311 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
 
-    <title>ColorSplit Pro</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="Professional CMYK Color Separation Software">
 
-    <meta name="theme-color"
-          content="#000000">
+<title>
+ColorSplit Pro
+</title>
 
-    <meta name="apple-mobile-web-app-capable"
-          content="yes">
 
-    <meta name="apple-mobile-web-app-status-bar-style"
-          content="black">
+<meta name="description"
+      content="Professional CMYK Color Separation and FreeHand Prepress Software">
 
-    <meta name="apple-mobile-web-app-title"
-          content="ColorSplit Pro">
 
-    <link rel="manifest"
-          href="./manifest.json">
+<meta name="theme-color"
+      content="#000000">
 
-    <link rel="icon"
-          href="./assets/logo.png">
 
-    <link rel="apple-touch-icon"
-          href="./assets/logo.png">
+<meta name="apple-mobile-web-app-capable"
+      content="yes">
 
-    <!-- ==========================================
-         CSS
-    =========================================== -->
 
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/home.css">
-    <link rel="stylesheet" href="./css/loading.css">
-    <link rel="stylesheet" href="./css/workspace.css">
+<meta name="apple-mobile-web-app-status-bar-style"
+      content="black">
+
+
+<meta name="apple-mobile-web-app-title"
+      content="ColorSplit Pro">
+
+
+<link rel="manifest"
+      href="./manifest.json">
+
+
+<link rel="icon"
+      href="./assets/logo.png">
+
+
+<link rel="apple-touch-icon"
+      href="./assets/logo.png">
+
+
+
+<!-- ==========================================
+     CSS
+========================================== -->
+
+
+<link rel="stylesheet"
+      href="./css/style.css">
+
+
+<link rel="stylesheet"
+      href="./css/home.css">
+
+
+<link rel="stylesheet"
+      href="./css/loading.css">
+
+
+<link rel="stylesheet"
+      href="./css/workspace.css">
+
+
+<link rel="stylesheet"
+      href="./css/prepress.css">
+
+
 
 </head>
 
+
+
 <body>
 
-    <!-- ==========================================
-         APP ROOT
-    =========================================== -->
 
-    <div id="app"></div>
+
+<!-- ==========================================
+     APPLICATION ROOT
+========================================== -->
+
+
+<div id="app">
+
+</div>
+
+
+
+
+
+<!-- ==========================================
+     CORE
+========================================== -->
+
+
+<script src="./js/state.js"></script>
 
 
 <script src="./js/router.js"></script>
 
+
 <script src="./js/utils/helper.js"></script>
 
+
+
+
+
+<!-- ==========================================
+     FILE ENGINE
+========================================== -->
+
+
 <script src="./js/engines/fileReader.js"></script>
+
+
 <script src="./js/engines/metadataReader.js"></script>
+
+
 <script src="./js/engines/imageLoader.js"></script>
+
+
 <script src="./js/engines/colorDetector.js"></script>
+
+
 <script src="./js/engines/previewLoader.js"></script>
 
+
+
+
+
+<!-- ==========================================
+     COLOR ENGINE
+========================================== -->
+
+
+<script src="./js/engines/color/iccConverter.js"></script>
+
+
+<script src="./js/engines/color/colorInspector.js"></script>
+
+
+<script src="./js/engines/color/colorHistory.js"></script>
+
+
+<script src="./js/engines/color/paletteManager.js"></script>
+
+
+
+
+
+<!-- ==========================================
+     COLOR SCIENCE ENGINE
+========================================== -->
+
+
+<script src="./js/engines/color/softProof.js"></script>
+
+
+<script src="./js/engines/color/deltaE.js"></script>
+
+
+<script src="./js/engines/color/cmykSeparation.js"></script>
+
+
+<script src="./js/engines/color/halftoneEngine.js"></script>
+
+
+
+
+
+<!-- ==========================================
+     FREEHAND PREPRESS ENGINE
+========================================== -->
+
+
+<script src="./js/engines/freehand/objectDetector.js"></script>
+
+
+<script src="./js/engines/freehand/fillDetector.js"></script>
+
+
+<script src="./js/engines/freehand/strokeDetector.js"></script>
+
+
+<script src="./js/engines/freehand/textDetector.js"></script>
+
+
+<script src="./js/engines/freehand/layerBuilder.js"></script>
+
+
+<script src="./js/engines/freehand/freehandAnalyzer.js"></script>
+
+
+
+
+
+<!-- ==========================================
+     PREPRESS USER INTERFACE
+========================================== -->
+
+
+<script src="./js/ui/prepress/prepressPanel.js"></script>
+
+
+<script src="./js/ui/prepress/objectPanel.js"></script>
+
+
+<script src="./js/ui/prepress/colorPanel.js"></script>
+
+
+<script src="./js/ui/prepress/printPanel.js"></script>
+
+
+
+
+
+<!-- ==========================================
+     APPLICATION PAGE
+========================================== -->
+
+
 <script src="./js/pages/home.js"></script>
+
+
 <script src="./js/pages/loading.js"></script>
+
+
 <script src="./js/pages/workspace.js"></script>
-<script src="./js/state.js"></script>
+
+
+
+
+
+<!-- ==========================================
+     APPLICATION BOOTSTRAP
+========================================== -->
+
+
 <script src="./js/app.js"></script>
 
-    <!-- ==========================================
-         SERVICE WORKER
-    =========================================== -->
 
-    <script>
 
-    if ("serviceWorker" in navigator) {
 
-        window.addEventListener("load", () => {
 
-            navigator.serviceWorker
-                .register("./sw.js")
-                .then(reg => {
+<!-- ==========================================
+     SERVICE WORKER
+========================================== -->
 
-                    console.log("Service Worker Registered");
 
-                })
-                .catch(err => {
+<script>
 
-                    console.error("Service Worker Error", err);
 
-                });
+if(
+"serviceWorker" in navigator
+){
 
-        });
 
-    }
+window.addEventListener(
+"load",
+()=>{
 
-    </script>
+
+navigator.serviceWorker
+.register(
+"./sw.js"
+)
+
+
+.then(
+reg=>{
+
+
+console.log(
+"Service Worker Registered"
+);
+
+
+})
+
+
+.catch(
+err=>{
+
+
+console.error(
+"Service Worker Error",
+err
+);
+
+
+});
+
+
+});
+
+
+}
+
+
+
+</script>
+
+
 
 </body>
 
