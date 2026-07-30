@@ -17,7 +17,7 @@ const Router = {
 
         loading: "renderLoading",
 
-        workspace: "renderWorkspace"
+        workspace: "Workspace.render();e"
 
     }
 
