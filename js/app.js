@@ -2,27 +2,42 @@
 =========================================================
 ColorSplit Pro
 Application Bootstrap
-Version : 2.0.0
-Architecture : Prepress Color Engine
+Version : 3.0.0
+Architecture : Prepress Engine
 Author : AppDIGI
 =========================================================
 */
 
+
 "use strict";
+
 
 
 const APP = {
 
-    name: "ColorSplit Pro",
 
-    version: "2.0.0",
+    name:
+    "ColorSplit Pro",
 
-    author: "AppDIGI",
 
-    build: "Prepress Engine"
+    version:
+    "3.0.0",
+
+
+    author:
+    "AppDIGI",
+
+
+    build:
+    "Prepress Engine"
+
 
 
 };
+
+
+
+
 
 
 /*=========================================================
@@ -31,104 +46,132 @@ APPLICATION START
 
 
 window.addEventListener(
-    "load",
-    initApp
+"load",
+initApp
 );
+
+
+
+
 
 
 
 function initApp(){
 
 
+
     console.clear();
 
 
-    console.log(
-        "========================================"
-    );
+
 
     console.log(
-        APP.name
-    );
-
-    console.log(
-        "Version :",
-        APP.version
-    );
-
-    console.log(
-        "Author  :",
-        APP.author
-    );
-
-    console.log(
-        "Build   :",
-        APP.build
-    );
-
-    console.log(
-        "========================================"
+    "========================================"
     );
 
 
+    console.log(
+    APP.name
+    );
 
-    /*
-    CHECK CORE
-    */
+
+    console.log(
+    "Version :",
+    APP.version
+    );
+
+
+    console.log(
+    "Author  :",
+    APP.author
+    );
+
+
+    console.log(
+    "========================================"
+    );
+
+
+
 
 
     if(
-        typeof AppState === "undefined"
+    typeof AppState === "undefined"
     ){
 
+
         console.error(
-            "AppState tidak ditemukan."
+        "AppState tidak ditemukan"
         );
 
+
         return;
+
 
     }
 
 
 
-    if(
-        typeof showPage !== "function"
-    ){
 
-        console.error(
-            "Router belum siap."
-        );
-
-        return;
-
-    }
 
 
 
     initializeState();
 
 
+
+
     initializeEngines();
 
 
 
-    showPage(
+
+    if(
+    typeof showPage === "function"
+    ){
+
+
+        showPage(
         "home"
-    );
+        );
+
+
+    }
+    else{
+
+
+        console.error(
+        "Router belum siap"
+        );
+
+
+    }
 
 
 
-    updateStatus(
-        "ColorSplit Pro Ready"
-    );
+
+
+
+    AppState.ready =
+    true;
+
+
+
 
 
     console.log(
-        "Application Ready"
+    "Application Ready"
     );
 
 
+
 }
+
+
+
+
+
+
 
 
 
@@ -146,17 +189,14 @@ function initializeState(){
 
 
 
-    /*
-    FILE DATA
-    */
-
-
     AppState.file =
     null;
 
 
+
     AppState.image =
     null;
+
 
 
     AppState.preview =
@@ -164,192 +204,24 @@ function initializeState(){
 
 
 
-
-    /*
-    METADATA
-    */
-
-
-    AppState.metadata = {
-
-
-        name:"",
-
-
-        type:"",
-
-
-        size:0,
-
-
-        extension:"",
-
-
-        width:0,
-
-
-        height:0,
-
-
-        dpi:96,
-
-
-        aspectRatio:"",
-
-
-        colorSpace:"Unknown",
-
-
-        bitDepth:"",
-
-
-        alpha:false,
-
-
-        iccProfile:"",
-
-
-        modified:""
-
-
-    };
-
-
-
-
-    /*
-    COLOR ENGINE DATA
-    */
-
-
-    AppState.colors = [];
-
-
-
-    AppState.selectedColor =
+    AppState.canvas =
     null;
 
 
 
-    AppState.cmyk = {
-
-
-        C:0,
-
-        M:0,
-
-        Y:0,
-
-        K:0
-
-
-    };
-
-
-
-
-    /*
-    SEPARATION DATA
-    */
-
-
-    AppState.layers = {
-
-
-        C:null,
-
-        M:null,
-
-        Y:null,
-
-        K:null
-
-
-    };
-
-
-
-
-    AppState.separation = {
-
-
-        ready:false,
-
-
-        profile:
-        "FOGRA39",
-
-
-        inkLimit:
-        300,
-
-
-        halftone:false
-
-
-    };
-
-
-
-
-
-    /*
-    FREEHAND DATA
-    */
-
-
-    AppState.freehand = {
-
-
-        ready:false,
-
-
-        objects:[],
-
-
-        layers:[],
-
-
-        report:null
-
-
-    };
-
-
-
-
-
-    /*
-    PRINT DATA
-    */
-
-
-    AppState.print = {
-
-
-        dpi:300,
-
-
-        profile:
-        "Coated FOGRA39",
-
-
-        colorMode:
-        "CMYK",
-
-
-        ready:false
-
-
-    };
-
-
-
     console.log(
-        "State Initialized"
+    "✓ State Initialized"
     );
 
+
+
 }
+
+
+
+
+
+
 
 
 
@@ -361,185 +233,213 @@ ENGINE LOADER
 function initializeEngines(){
 
 
-    console.log(
-        "Loading Engines..."
-    );
 
+console.log(
+"Loading Engines..."
+);
 
 
-    /*
-    =========================
-    COLOR ENGINE
-    =========================
-    */
 
 
 
-    if(
-        typeof ICCConverter !== "undefined"
-    ){
+/*
+=========================
+FILE ENGINE
+=========================
+*/
 
 
-        ICCConverter.init();
+loadEngine(
+"File Reader",
+typeof FileReaderEngine
+);
 
 
-        console.log(
-            "✓ ICC Converter"
-        );
 
+loadEngine(
+"Metadata Reader",
+typeof MetadataReader
+);
 
-    }
 
 
+loadEngine(
+"Image Loader",
+typeof ImageLoader
+);
 
 
-    if(
-        typeof ColorInspector !== "undefined"
-    ){
 
+loadEngine(
+"Preview Loader",
+typeof PreviewLoader
+);
 
-        ColorInspector.init();
 
 
-        console.log(
-            "✓ Color Inspector"
-        );
 
 
-    }
 
 
 
 
-    if(
-        typeof ColorHistory !== "undefined"
-    ){
+/*
+=========================
+COLOR ENGINE
+=========================
+*/
 
 
-        ColorHistory.load();
+loadEngine(
+"ICC Converter",
+typeof ICCConverter
+);
 
 
-        console.log(
-            "✓ Color History"
-        );
 
+loadEngine(
+"Adobe Profile",
+typeof AdobeProfile
+);
 
-    }
 
 
+loadEngine(
+"Gamut Mapper",
+typeof GamutMapper
+);
 
 
-    if(
-        typeof PaletteManager !== "undefined"
-    ){
 
+loadEngine(
+"Color Difference",
+typeof ColorDifference
+);
 
-        PaletteManager.load();
 
 
-        console.log(
-            "✓ Palette Manager"
-        );
+loadEngine(
+"Color Inspector",
+typeof ColorInspector
+);
 
 
-    }
 
+loadEngine(
+"Color History",
+typeof ColorHistory
+);
 
 
 
-    /*
-    =========================
-    SEPARATION ENGINE
-    =========================
-    */
+loadEngine(
+"Palette Manager",
+typeof PaletteManager
+);
 
 
 
-    if(
-        typeof SeparationWorkspace !== "undefined"
-    ){
 
 
-        SeparationWorkspace.init();
 
 
-        console.log(
-            "✓ Separation Workspace"
-        );
 
 
-    }
+/*
+=========================
+SEPARATION ENGINE
+=========================
+*/
 
 
+loadEngine(
+"CMYK Separation",
+typeof CMYKSeparation
+);
 
 
 
-    if(
-        typeof CMYKSeparation !== "undefined"
-    ){
+loadEngine(
+"Soft Proof",
+typeof SoftProof
+);
 
 
-        console.log(
-            "✓ CMYK Separation Engine"
-        );
 
+loadEngine(
+"Delta E",
+typeof DeltaE
+);
 
-    }
 
 
+loadEngine(
+"Halftone Engine",
+typeof HalftoneEngine
+);
 
 
 
-    if(
-        typeof HalftoneEngine !== "undefined"
-    ){
 
 
-        console.log(
-            "✓ Halftone Engine"
-        );
 
 
-    }
 
 
+/*
+=========================
+FREEHAND ENGINE
+=========================
+*/
 
 
+loadEngine(
+"Object Detector",
+typeof ObjectDetector
+);
 
-    /*
-    =========================
-    FREEHAND PREPRESS ENGINE
-    =========================
-    */
 
 
+loadEngine(
+"Fill Detector",
+typeof FillDetector
+);
 
-    if(
-        typeof FreeHandAnalyzer !== "undefined"
-    ){
 
 
-        console.log(
-            "✓ FreeHand Analyzer"
-        );
+loadEngine(
+"Stroke Detector",
+typeof StrokeDetector
+);
 
 
-    }
 
+loadEngine(
+"Text Detector",
+typeof TextDetector
+);
 
 
 
-    if(
-        typeof PrintCheck !== "undefined"
-    ){
+loadEngine(
+"Layer Builder",
+typeof LayerBuilder
+);
 
 
-        console.log(
-            "✓ Print Check"
-        );
 
+loadEngine(
+"FreeHand Analyzer",
+typeof FreeHandAnalyzer
+);
 
-    }
+
+
+
+
+
+
+
 
 /*
 =========================
@@ -552,121 +452,86 @@ if(
 typeof PrepressPanel !== "undefined"
 ){
 
+
     PrepressPanel.init();
 
 
     console.log(
-        "✓ Prepress Panel UI"
+    "✓ Prepress Panel UI"
     );
 
+
 }
+
+
+
+
+
+
+
+console.log(
+"All Engines Loaded"
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/*=========================================================
+ENGINE CHECK
+=========================================================*/
+
+
+function loadEngine(
+name,
+engine
+){
 
 
 
 if(
-typeof ObjectPanel !== "undefined"
+engine !== "undefined"
 ){
 
+
     console.log(
-        "✓ Object Panel"
+    "✓",
+    name
     );
+
+
+}
+else{
+
+
+    console.warn(
+    "✕",
+    name,
+    "Not Found"
+    );
+
 
 }
 
 
 
-if(
-typeof ColorPanel !== "undefined"
-){
-
-    console.log(
-        "✓ Color Panel"
-    );
-
 }
 
 
 
-if(
-typeof PrintPanel !== "undefined"
-){
-
-    console.log(
-        "✓ Print Panel"
-    );
-
-}
-
-    console.log(
-        "All Engines Loaded"
-    );
-
-}
-
-/*
-=========================
-FREEHAND CORE ENGINE
-=========================
-*/
-
-
-if(
-    typeof ObjectDetector !== "undefined"
-){
-
-    console.log(
-        "✓ Object Detector"
-    );
-
-}
 
 
 
-if(
-    typeof FillDetector !== "undefined"
-){
-
-    console.log(
-        "✓ Fill Detector"
-    );
-
-}
 
 
-
-if(
-    typeof StrokeDetector !== "undefined"
-){
-
-    console.log(
-        "✓ Stroke Detector"
-    );
-
-}
-
-
-
-if(
-    typeof TextDetector !== "undefined"
-){
-
-    console.log(
-        "✓ Text Detector"
-    );
-
-}
-
-
-
-if(
-    typeof LayerBuilder !== "undefined"
-){
-
-    console.log(
-        "✓ Layer Builder"
-    );
-
-}
 
 /*=========================================================
 STATUS
@@ -676,23 +541,30 @@ STATUS
 function updateStatus(text){
 
 
-    const status =
-    document.getElementById(
-        "statusText"
-    );
+
+const status =
+document.getElementById(
+"statusText"
+);
 
 
-    if(status){
+
+if(status){
 
 
-        status.textContent =
-        text;
-
-
-    }
+    status.textContent =
+    text;
 
 
 }
+
+
+
+}
+
+
+
+
 
 
 
@@ -706,20 +578,23 @@ LOADING
 function updateLoading(text){
 
 
-    const loading =
-    document.getElementById(
-        "loadingText"
-    );
+
+const loading =
+document.getElementById(
+"loadingText"
+);
 
 
-    if(loading){
+
+if(loading){
 
 
-        loading.textContent =
-        text;
+    loading.textContent =
+    text;
 
 
-    }
+}
+
 
 
 }
@@ -728,73 +603,67 @@ function updateLoading(text){
 
 
 
+
+
+
+
 /*=========================================================
-ERROR HANDLER
+ERROR
 =========================================================*/
 
 
 function showError(error){
 
 
-    console.error(
-        error
-    );
+
+console.error(
+error
+);
 
 
-    updateStatus(
-        "Error"
-    );
+
+updateStatus(
+"Error"
+);
 
 
-    alert(
-        error
-    );
+
+alert(
+error
+);
+
 
 
 }
+
+
+
+
 
 
 
 
 
 /*=========================================================
-APPLICATION INFO
+GLOBAL EXPORT
 =========================================================*/
 
 
-function getAppInfo(){
-
-
-    return {
-
-
-        name:
-        APP.name,
-
-
-        version:
-        APP.version,
-
-
-        author:
-        APP.author,
-
-
-        build:
-        APP.build
-
-
-    };
-
-
-}
-
-
-
-window.ColorSplitAPP =
+window.APP =
 APP;
 
 
+
+window.initializeEngines =
+initializeEngines;
+
+
+
+window.updateStatus =
+updateStatus;
+
+
+
 console.log(
-    "Bootstrap Loaded"
+"App.js v3.0 Loaded"
 );
